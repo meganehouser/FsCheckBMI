@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-markdown
+                    data-separator="\n---\n$"
+                    data-vertical="\n--\n$">
+                    <script type="text/template">
+                        ## FsCheckでProperty-based testing
+
+                        ---
+
+                        ## みなさんテストコードは書いてますか
+
+                        ---
+
+                        ## こんなの
+                        
+                        <pre><code data-trim>
+                            public void 数字を文字列する()
+                            {
+                                Assert.That(1.Tostring(), "1");
+                            }
+                        </code></pre>
+
+                        ---
+
+                        ## example-based test
+
+                        特定のテスト値の事後状態を確認する
+
+                        ---
+
+                        ## property-based test
+
+                        入力「群」に対する出力「群」が規定された性質(property)を満たしていることを確認する
+
+                        ---
+
+                        ## 性質って？
+
+                        例:リストの逆順の逆順は最初のリストと等しい
+                        <pre><code data-trim>
+                        let revRevIsOrig (xs:list&lt;int&gt;) = List.rev(List.rev xs) = xs
+                        </code></pre>
+
+                        ---
+
+                        ## 入力「群」？
+
+                        テストデータは検証する関数の型に従って大量件数ランダムに生成される
+
+                        ---
+                        
+                        # Demo
+
+                        ---
+
+                        ## メリット1
+
+                        * 開発行程で想定しないデータが与えられる
+                        <br /> ⇒ バグの早期発見
+
+                        ---
+
+                        ## メリット2
+
+                        * 実装する関数について注意深くなる
+                          * 関数の正しい入力値の範囲
+                          * 関数の正しい挙動
+
+                        ---
+
+                        ## メリット3
+
+                        * より抽象度が高いレベルで関数の性質が記述できる
+                          ⇒ テストコードがドキュメントとなる
+
+                        ---
+
+                        ## 困ったところ
+
+                        * 関数の性質を見つけるのが難しい
+                        * 適用できる関数の種類が限定される
+                        * TDDのリズムが悪くなる（Redの状態が長くなる)
+
+                        ---
+
+                        ## 適用できる性質例1
+
+                        ### Roundtrip
+
+                        * 事前状態と事後状態が等しい
+                            * DBにレコードを保存=読み込んだレコード
+                            * シリアライズとデシアライズ
+                        
+                        ---
+
+                        ## 適用できる性質例2
+
+                        ### Invariant
+
+                        * 常に成立する等式
+                            * 注文の小計の合計=総計
+                            * 各ページの単語数合計=総単語数
+
+                        ---
+
+                        ## 適用できる性質例3
+
+                        ### Rounding
+
+                        * 数値計算における端数処理の確認
+                            * レシピの材料野割合
+                            * 税計算の端数処理
+
+                        ---
+
+                        ## 適用できる性質例4
+
+                        ### データ構造への操作
+
+                        * リストの挿入/削除/変換など
+
+
+                        ---
+
+                        ## 注意
+
+                        #### あくまで開発行程での補助ツール
+
+                        * TDDのテストは品質保証のテストではない
+                          * 網羅性はテスト計画で作り込む
+                          * テストデータがランダムなためコーナケースが検出できるかは運
+                        * example-based testと組み合わせて使用した方が効果的
+
+                        ---
+
+                        ## 参考
+
+                        * [FsCheck](https://github.com/fsharp/FsCheck)
+                        * [FsCheck日本語ドキュメント](https://github.com/fsharp/FsCheck/blob/master/Docs/Documentation_ja.md)
+                        * [Using F# for testing - F# for fun and profit](http://fsharpforfunandprofit.com/posts/low-risk-ways-to-use-fsharp-at-work-3/#test-fscheck)
+                        * [Commentary on 'Roman Numerals Kata with Commentary' F# for fun and profit](http://fsharpforfunandprofit.com/posts/roman-numeral-kata/)
+                        * [FsCheck + XUnit = The Bomb - Clear Lins Consulting](http://www.clear-lines.com/blog/post/FsCheck-and-XUnit-is-The-Bomb.aspx#)
+                        * [Difficulty thinking of properties for FsCheck - stackoverflow](http://stackoverflow.com/questions/2446242/difficulty-thinking-of-properties-for-fscheck)
+
+                    </script>
+                </sectin>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
