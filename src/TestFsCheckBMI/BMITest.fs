@@ -8,9 +8,9 @@ open FsCheckBMI
 [<TestFixture>]
 type ``BMI算出のテスト``()=
     [<Test>]
-    member this.``BMI値は身長より小さい``() =
+    member this.``BMI値は体重より小さい``() =
         fsCheck (fun (h:int) (w:int) -> 
-            BMI.Compute(h, w) <= (float h)
+            BMI.Compute(h, w) <= (float w)
             )
             //==> (h > 0))
 
